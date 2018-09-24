@@ -1,9 +1,15 @@
 package io.renren.utils;
 
 import io.renren.entity.SysUserEntity;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Shiro工具类
@@ -50,6 +56,26 @@ public class ShiroUtils {
 		String kaptcha = getSessionAttribute(key).toString();
 		getSession().removeAttribute(key);
 		return kaptcha;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(new Sha256Hash("zsw").toHex());
+
+
+		String text = "zsw";
+		MessageDigest digest;
+		try {
+			digest = MessageDigest.getInstance("SHA-256");
+			byte[] hash = digest.digest(text.getBytes("UTF-8"));
+			String output = Hex.encodeHexString(hash);
+			System.out.println(output);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

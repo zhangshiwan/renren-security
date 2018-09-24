@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>教师学生关联表</title>
+#parse("sys/header.html")
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<div v-show="showList">
+		<div class="grid-btn">
+			#if($shiro.hasPermission("linkpublishstudent:save"))
+			<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			#end
+			#if($shiro.hasPermission("linkpublishstudent:update"))
+			<a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			#end
+			#if($shiro.hasPermission("linkpublishstudent:delete"))
+			<a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			#end
+		</div>
+	    <table id="jqGrid"></table>
+	    <div id="jqGridPager"></div>
+    </div>
+    
+    <div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+											<div class="form-group">
+			   	<div class="col-sm-2 control-label">老师名</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="linkPublishStudent.teacherUserName" placeholder="老师名"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">老师主键</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="linkPublishStudent.teacherUserId" placeholder="老师主键"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">学生名</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="linkPublishStudent.studentUserName" placeholder="学生名"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">学生主键</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="linkPublishStudent.studentUserId" placeholder="学生主键"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">发布资源任务描述</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="linkPublishStudent.resDes" placeholder="发布资源任务描述"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">1:频道 1对多上课   2:单聊 1对1上课</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="linkPublishStudent.resType" placeholder="1:频道 1对多上课   2:单聊 1对1上课"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">创建时间</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="linkPublishStudent.createTime" placeholder="创建时间"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">技能类别。 1:计算机。2：英语</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="linkPublishStudent.category" placeholder="技能类别。 1:计算机。2：英语"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">技能关键字</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="linkPublishStudent.keywords" placeholder="技能关键字"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">1:学生自愿。2:一次一元  3:自定义</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="linkPublishStudent.feeType" placeholder="1:学生自愿。2:一次一元  3:自定义"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">收费自定义</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="linkPublishStudent.ownFeeDesc" placeholder="收费自定义"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">频道名称</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="linkPublishStudent.channelName" placeholder="频道名称"/>
+			    </div>
+			</div>
+							<div class="form-group">
+				<div class="col-sm-2 control-label"></div> 
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script src="${rc.contextPath}/js/generator/linkpublishstudent.js?_${date.systemTime}"></script>
+</body>
+</html>

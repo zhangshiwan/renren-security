@@ -11,11 +11,14 @@ import io.renren.validator.Assert;
 import io.renren.validator.ValidatorUtils;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -64,7 +67,7 @@ public class SysUserController extends AbstractController {
 	}
 	
 	/**
-	 * 修改登录用户密码
+	 * 修改登录用户密码`
 	 */
 	@SysLog("修改密码")
 	@RequestMapping("/password")
@@ -106,13 +109,19 @@ public class SysUserController extends AbstractController {
 	/**
 	 * 保存用户
 	 */
-	@SysLog("保存用户")
+	//@SysLog("保存用户")
 	@RequestMapping("/save")
-	@RequiresPermissions("sys:user:save")
 	public R save(@RequestBody SysUserEntity user){
+//		response.addHeader("Access-Control-Allow-Origin","*");
+//		response.addHeader("Access-Control-Allow-Methods","*");
+//		response.addHeader("Access-Control-Max-Age","100");
+//		response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+//		response.addHeader("Access-Control-Allow-Credentials","false");
 		ValidatorUtils.validateEntity(user, AddGroup.class);
-		
-		user.setCreateUserId(getUserId());
+
+		user.setStatus(1);
+
+		//user.setCreateUserId(getUserId());
 		sysUserService.save(user);
 		
 		return R.ok();
